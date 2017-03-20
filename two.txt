@@ -9,3 +9,7 @@
 one
 two
 合了
+备合并dev分支，请注意--no-ff参数，表示禁用Fast forward：
+因为本次合并要创建一个新的commit，所以加上-m参数，把commit描述写进去。
+
+合并后，我们用git log看看分支历史
