@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+    <textarea name="name" rows="8" cols="80" id="txt"><p><img src="null" onerror="alert(2222)"><button onclick="alert('攻击我')">攻击我</button>
+    </textarea>
+   	<button type="button" id="btn">评论</button>
+   	<button type="button" id="get">获取评论</button>
+   	<script>
+   		var btn=document.getElementById('btn');
+   		var get=document.getElementById('get');
+   		var txt=document.getElementById('txt');
+   		btn.addEventListener('click', function(e) {
+   			var xhr=new XMLHttpRequest();
+   			var random=Math.random()*10000;
+   			random=random.toFixed(0)
+   			var url='/comment?comment='+txt.value;
+   			console.log(url);
+   			xhr.open("get",url,true)
+   			xhr.onreadystatechange=function() {
+   				if(xhr.readyState==4){
+   					if(xhr.status==200){
+	   					console.log(xhr);
+   					}
+   					else{
+   						console.log("error");
+   					}
+   				}
+   
+   			}
+   			xhr.send()
+   		});
+
+   		get.addEventListener('click', function(e) {
+   			var xhr=new XMLHttpRequest()
+   			var url='/getComment';
+   			xhr.open("get",url,true)
+   			xhr.onreadystatechange=function() {
+   				if(xhr.readyState==4){
+   					if(xhr.status==200){
+	   					var com=JSON.parse(xhr.responseText).comment;
+	   					var text=document.createElement('span');
+	   					text.innerHTML=com;
+	   					document.body.appendChild(text);
+   					}else{
+   						console.log("error");
+   					}
+   				}
+   			}
+   			xhr.send()
+   		});
+
+   	</script>
+  </body>
+</html>
